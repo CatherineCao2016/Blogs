@@ -189,6 +189,13 @@ def wrap_figures(html: str) -> str:
         <p><em>Caption: the text</em></p>
     An image with no following caption line becomes a plain <figure> (no
     <figcaption>), so alt text still carries the accessible description."""
+    # video + caption paragraph -> figure with figcaption
+    html = re.sub(
+        r'(<video\b[^>]*>.*?</video>)\s*<p><em>Caption:\s*(.*?)</em></p>',
+        lambda m: f'<figure>{m.group(1)}<figcaption>{m.group(2).strip()}</figcaption></figure>',
+        html,
+        flags=re.DOTALL,
+    )
     # image + caption in the SAME paragraph (image and caption on consecutive
     # Markdown lines with no blank line between -> one <p>)
     html = re.sub(
@@ -410,6 +417,8 @@ POST_TEMPLATE = """<!DOCTYPE html>
                   border-radius:6px; overflow:hidden; background:var(--panel);
                   border:1px solid var(--border); }
   .video-embed iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .post-video { display:block; width:100%; height:auto; margin:2em 0; border-radius:8px;
+                border:1px solid var(--border); background:#000; }
   .video-placeholder { position:static; padding:22px; height:auto; font-family:var(--sans);
                         font-size:.95rem; color:var(--muted); }
   .video-placeholder strong { color:var(--text); }

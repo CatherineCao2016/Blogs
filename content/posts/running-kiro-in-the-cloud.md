@@ -25,6 +25,7 @@ _Caption: A cloud session runs the Kiro agent remotely, reachable from Kiro Web,
 A cloud session is a development environment that runs on cloud infrastructure instead of on your local machine. You interact with it through a client: Kiro Web, the IDE, the CLI, or Mobile. The work itself happens remotely. Your code, tools, compute, and running processes live in the cloud environment, while your device is primarily the interface you use to control the session.
 
 ![One cloud session, every client: Kiro Web, the IDE, the CLI, and Mobile all connect to a single cloud session that keeps working as you move between tasks, devices, and clients.](./cloud-session-by-clients.gif)
+_Caption: One cloud session, reachable from any client._
 
 You can think of it as a temporary computer in a data center, already set up for the task at hand. Instead of relying on your laptop's CPU, memory, and local environment, you send work to the cloud session and let it run there.
 
@@ -70,6 +71,7 @@ Leaving the session: you approve what comes out. The agent never pushes to your 
 Across all three stages, no single layer carries the whole load. Together they keep a cloud session useful while holding the risk down.
 
 ![The layers that keep a cloud session safe: repository-only cloning on entry, an isolated sandbox with configurable network access and scoped repository access during the session, and a pull request you review before anything merges on the way out.](./cloud-session-safety.png)
+_Caption: The layers that keep a cloud session safe, from entry to pull request._
 
 ## How to keep your configuration consistent between local and cloud
 
@@ -87,13 +89,25 @@ Kiro configuration has two scopes: **project configuration** and **personal conf
 Personal configuration can move across the local-cloud boundary in two ways:
 
 - **Local to cloud sessions:** Use **Configuration Sync** to manually upload supported folders from your local `~/.kiro` directory. This creates or updates the cloud copy, which applies automatically to cloud sessions.
+
+<video class="post-video" controls preload="metadata" playsinline src="./local-to-cloud.mp4">
+  Your browser does not support embedded video. <a href="./local-to-cloud.mp4">Download the clip</a> to watch it.
+</video>
+_Caption: Uploading local configuration to the cloud with Configuration Sync._
+
 - **Cloud into local sessions:** If you create or edit configuration in Kiro Web, enable **Apply your cloud configuration to local sessions**. New IDE and CLI sessions then load the cloud copy when they start.
+
+<video class="post-video" controls preload="metadata" playsinline src="./cloud-to-local.mp4">
+  Your browser does not support embedded video. <a href="./cloud-to-local.mp4">Download the clip</a> to watch it.
+</video>
+_Caption: Applying your cloud configuration to new local sessions._
 
 If you already have personal configuration locally, start by uploading it through Configuration Sync. If you are starting fresh, you can create your personal configuration directly in Kiro Web.
 
 For the most consistent experience, once your cloud copy is set up, enable **Apply your cloud configuration to local sessions** and make ongoing changes to the cloud-managed configuration. If you make changes to your local configuration files instead, run Configuration Sync again to upload them, since file synchronization currently works only from local to cloud.
 
 ![Diagram, how a cloud session runs: on your local machine, You use a Client (Web, IDE, CLI, or Mobile); in the Kiro cloud sandbox, an isolated managed environment, the cloud session runs the Kiro agent with a cloned repository plus project .kiro config, sandbox-backed tools, and session state that survives disconnects. Numbered flow: (1) describe the task and steer, (2) get results in the conversation, (3) the GitHub or GitLab repository is cloned server-side into the sandbox, (4) Kiro opens a pull request you review and merge as usual. Below, optional Configuration Sync connects personal config in local ~/.kiro with cloud-managed personal config stored in your account: upload from local to cloud, and apply the cloud copy to local sessions when enabled.](./How-cloud-session-runs-final.png)
+_Caption: How a cloud session runs, and how Configuration Sync moves your personal config._
 
 ## See it in action
 
