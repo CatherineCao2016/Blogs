@@ -55,18 +55,18 @@ Stay local when the work is tied to your machine:
 
 A cloud session does real work on its own: it runs commands and edits code without you watching each step. So it is worth knowing what contains it and where you stay in control, at each stage of a task.
 
-Entering the session (what gets loaded into the sandbox): nothing leaves your local machine. The sandbox clones the repository from your connected GitHub or GitLab, so it works from what is in the repository. Even when you start a cloud session from your IDE or CLI, your working copy is not sent and your local configuration stays on your machine.
+**Entering the session** (what gets loaded into the sandbox): nothing leaves your local machine. The sandbox clones the repository from your connected GitHub or GitLab, so it works from what is in the repository. Even when you start a cloud session from your IDE or CLI, your working copy is not sent and your local configuration stays on your machine.
 
-During the session: the agent runs in an isolated sandbox.
+**During the session:** the agent runs in an isolated sandbox.
 
-- Configurable network access: you choose how much of the internet the sandbox can reach, and match the level to what the task actually needs.
-  - Repository access only: the agent reaches only your connected repositories and pull requests. This is the most secure level.
-  - Common dependencies: this adds popular package registries and development tools, so the agent can install dependencies. The docs list the [domains that are automatically allowed](https://kiro.dev/docs/web/sandbox/internet-access/#common-dependencies), and you can extend the set with a custom allow-list.
-  - Open internet: the agent has unrestricted internet access. Opening up network access raises risks like prompt injection and secret extraction inside the sandbox. The good news is the sandbox is still isolated in the cloud, so it cannot reach your local machine.
-- Scoped access: because you scope its access when you connect GitHub or GitLab, the agent can only touch the repositories you chose.
-- Secrets and credentials: you can give the sandbox environment variables for config and secrets for sensitive values like API keys. Secrets are encrypted at rest and injected only into the isolated sandbox at runtime. Be careful, though: as with any agent that runs with a live secret, it could expose one through the code it writes, its logs, or a network request. This is exactly why the layers work together. Isolation, a tighter network access level, and scoped repository access each limit where a secret could go, so provide only the secrets a task needs and keep the risk minimal.
+- **Configurable network access:** you choose how much of the internet the sandbox can reach, and match the level to what the task actually needs.
+    - Repository access only: the agent reaches only your connected repositories and pull requests. This is the most secure level.
+    - Common dependencies: this adds popular package registries and development tools, so the agent can install dependencies. The docs list the [domains that are automatically allowed](https://kiro.dev/docs/web/sandbox/internet-access/#common-dependencies), and you can extend the set with a custom allow-list.
+    - Open internet: the agent has unrestricted internet access. Opening up network access raises risks like prompt injection and secret extraction inside the sandbox. The good news is the sandbox is still isolated in the cloud, so it cannot reach your local machine.
+- **Scoped access:** because you scope its access when you connect GitHub or GitLab, the agent can only touch the repositories you chose.
+- **Secrets and credentials:** you can give the sandbox environment variables for config and secrets for sensitive values like API keys. Secrets are encrypted at rest and injected only into the isolated sandbox at runtime. Be careful, though: as with any agent that runs with a live secret, it could expose one through the code it writes, its logs, or a network request. This is exactly why the layers work together. Isolation, a tighter network access level, and scoped repository access each limit where a secret could go, so provide only the secrets a task needs and keep the risk minimal.
 
-Leaving the session: you approve what comes out. The agent never pushes to your main branch. It opens a pull request and waits for you to review the changes before they merge.
+**Leaving the session:** you approve what comes out. The agent never pushes to your main branch. It opens a pull request and waits for you to review the changes before they merge.
 
 Across all three stages, no single layer carries the whole load. Together they keep a cloud session useful while holding the risk down.
 
