@@ -1,0 +1,12 @@
+{
+  "videos": [
+    {
+      "title": "Running a task in a cloud session on Kiro Web",
+      "youtube_id": "REPLACE_WITH_YOUTUBE_ID_1"
+    },
+    {
+      "title": "Moving personal configuration between local and cloud with Configuration Sync",
+      "youtube_id": "REPLACE_WITH_YOUTUBE_ID_2"
+    }
+  ]
+}
