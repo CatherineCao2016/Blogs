@@ -2,7 +2,7 @@
 title: Running Kiro in the cloud
 date: 2026-09-11
 summary: What a cloud session is, how to keep your configuration consistent, when to use one, and what keeps it safe — with a short video walkthrough.
-cover: How-cloud-session-runs-final.png
+cover: Kiro-Cloud-Session-cover.png
 videos:
   - youtube_id: gmoKaX2DO5Y, title: Running a task in a cloud session on Kiro Web
 ---

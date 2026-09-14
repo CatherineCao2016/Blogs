@@ -339,7 +339,7 @@ HOME_TEMPLATE = """<!DOCTYPE html>
   .card:hover { box-shadow:0 6px 24px rgba(0,0,0,.08); transform:translateY(-2px); }
   .card-cover { aspect-ratio:16/9; background:var(--panel); overflow:hidden;
                  border-bottom:1px solid var(--border); }
-  .card-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  .card-cover img { width:100%; height:100%; object-fit:contain; display:block; }
   .card-body { padding:20px 22px 24px; display:flex; flex-direction:column; gap:8px; }
   .card-title { font-family:var(--sans); font-weight:700; font-size:1.25rem;
                  line-height:1.25; letter-spacing:-0.01em; color:#111; }
