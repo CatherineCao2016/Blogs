@@ -394,9 +394,18 @@ POST_TEMPLATE = """<!DOCTYPE html>
   li { margin:.4em 0; }
   img { max-width:100%; height:auto; margin:2em 0 .6em; display:block; }
   figure { margin:2em 0; }
-  figure img { margin:0 0 .5em; }
+  figure img { margin:0 0 .5em; cursor:zoom-in; }
   figcaption { font-family:var(--sans); font-size:.82rem; line-height:1.4;
                color:var(--muted); text-align:center; }
+  /* Image lightbox */
+  .lightbox { position:fixed; inset:0; z-index:1000; display:none;
+              align-items:center; justify-content:center; padding:4vmin;
+              background:rgba(0,0,0,.85); cursor:zoom-out; }
+  .lightbox.open { display:flex; }
+  .lightbox img { max-width:100%; max-height:100%; width:auto; height:auto;
+                  border-radius:4px; box-shadow:0 10px 40px rgba(0,0,0,.5); cursor:default; }
+  .lightbox-close { position:fixed; top:18px; right:22px; font-size:2rem; line-height:1;
+                    color:#fff; background:none; border:0; cursor:pointer; font-family:var(--sans); }
   .video-embed { position:relative; padding-bottom:56.25%; height:0; margin:2em 0;
                   border-radius:6px; overflow:hidden; background:var(--panel);
                   border:1px solid var(--border); }
@@ -488,6 +497,33 @@ POST_TEMPLATE = """<!DOCTYPE html>
     if (!ticking) { window.requestAnimationFrame(function () { onScroll(); ticking = false; }); ticking = true; }
   }, { passive: true });
   onScroll();
+})();
+</script>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" alt="">
+</div>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightboxImg');
+  if (!box || !boxImg) return;
+  function open(src, alt) {
+    boxImg.src = src; boxImg.alt = alt || '';
+    box.classList.add('open'); document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    box.classList.remove('open'); boxImg.src = ''; document.body.style.overflow = '';
+  }
+  document.querySelectorAll('figure img').forEach(function (img) {
+    img.addEventListener('click', function () { open(img.currentSrc || img.src, img.alt); });
+  });
+  box.addEventListener('click', function (e) {
+    if (e.target !== boxImg) close();   // click backdrop or close button
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && box.classList.contains('open')) close();
+  });
 })();
 </script>
 </body></html>
